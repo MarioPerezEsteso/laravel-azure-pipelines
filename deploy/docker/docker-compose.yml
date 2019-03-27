@@ -1,0 +1,55 @@
+cache:
+  image: redis
+  container_name: mycache
+  ports:
+    - "6379:6379"
+
+
+db:
+  image: docker-hiimpact-db
+  container_name: mydb
+  ports:
+    - "7001:80"
+
+
+web:
+  image: env-backend-dev
+  container_name: backend-distribution
+  command: php artisan serve --host 0.0.0.0 --port 8001
+
+  ports:
+      - "8001:8001"
+  volumes:
+    - $PWD:/command-php
+    - /data:/data
+  user: vagrant
+  links:
+    - cache:cachehost
+    - db
+  working_dir: /data/backend-distribution
+
+
+php:
+  image: env-backend-build
+  command: php
+  volumes:
+    - $PWD:/command-php
+    - /data:/data
+    - /home/vagrant/.phpstorm_helpers:/home/vagrant/.phpstorm_helpers
+  user: vagrant
+  working_dir: $PWD
+
+
+debugphp:
+  image: env-backend-dev
+  command: php-distribution-debug
+  ports:
+      - "9001:9001"
+  volumes:
+    - $PWD:/command-php
+    - /data:/data
+    - /home/vagrant:/home/vagrant
+  user: vagrant
+  links:
+      - cache:cachehost
+  working_dir: $PWD

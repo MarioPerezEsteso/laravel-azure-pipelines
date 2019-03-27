@@ -1,0 +1,5 @@
+# Do not touch this file
+# This file is necessary to force deployments through a forced commit
+# This is necessay because new changes would come from other repos instead of backend-distribution
+# See hi-impact-devops/scripts/ci/hi-impact-cloud-deploy.sh
+# Kudu could be better: https://github.com/projectkudu/kudu/issues/925
