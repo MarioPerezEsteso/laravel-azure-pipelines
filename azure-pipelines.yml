@@ -25,5 +25,5 @@ steps:
 - script: composer install --no-interaction --prefer-dist
   displayName: 'composer install'
 
-- script: php vendor/bin/codecept run unit
-  displayName: 'Run Unit tests'
+- script: php vendor/bin/codecept run
+  displayName: 'Run tests'
